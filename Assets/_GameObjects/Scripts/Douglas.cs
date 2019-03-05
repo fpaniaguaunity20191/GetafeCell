@@ -11,6 +11,7 @@ public class Douglas : MonoBehaviour {
     public float distanciaDeteccionCarrera;//A partir de qué distancia he escuchado correr a Ryan
     public float anguloVision;//Angulo de vision
     public float distanciaAlPlayer;//Distancia al player
+    public bool enloquecido = false;//Determina si esta siguiendo a un senyuelo
 
     private NavMeshAgent agente;
     private Animator animador;
@@ -33,15 +34,28 @@ public class Douglas : MonoBehaviour {
     }
     private void AsignarDestinoReal(int indice)
     {
-        estado = Estado.Walking;
-        agente.destination = puntosPatrulla[indice].position;
-        animador.SetBool(ANIM_ISWALKING, true);
+        if (!enloquecido)
+        {
+            estado = Estado.Walking;
+            agente.destination = puntosPatrulla[indice].position;
+            animador.SetBool(ANIM_ISWALKING, true);
+        }
+    }
+    private void AsignarDestinoReal(Vector3 nuevoDestino)
+    {
+        if (!enloquecido)
+        {
+            estado = Estado.Walking;
+            agente.destination = nuevoDestino;
+            animador.SetBool(ANIM_ISWALKING, true);
+        }
     }
     private void Update()
     {
         Detectar();
         if (estado!=Estado.Idle && agente.remainingDistance < 0.1f)
         {
+            enloquecido = false;
             estado = Estado.Idle;
             animador.SetBool(ANIM_ISWALKING, false);
             Invoke("AsignarDestino", 2);
@@ -84,9 +98,34 @@ public class Douglas : MonoBehaviour {
     private void Detectar()
     {
         distanciaAlPlayer = ObtenerDistanciaAlPlayer();
+        switch (player.State){
+            case Player.Estado.Idle:
+                break;
+            case Player.Estado.Walking:
+                if (distanciaAlPlayer <= distanciaDeteccionPasos)
+                {
+                    //He escuchado al player
+                    AsignarDestinoReal(player.gameObject.transform.position);
+                }
+                break;
+            case Player.Estado.Running:
+                if (distanciaAlPlayer <= distanciaDeteccionCarrera)
+                {
+                    //He escuchado al player
+                    AsignarDestinoReal(player.gameObject.transform.position);
+                }
+                break;
+            default:
+                break;
+        }
     }
     private float ObtenerDistanciaAlPlayer()
     {
         return Vector3.Distance(transform.position, player.gameObject.transform.position);
+    }
+    public void SetSenyuelo(Vector3 posSenyuelo)
+    {
+        AsignarDestinoReal(posSenyuelo);
+        enloquecido = true;
     }
 }
