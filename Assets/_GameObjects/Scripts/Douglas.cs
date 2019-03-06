@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Douglas : MonoBehaviour {
+    public Transform posOjos;//Posicion de los ojos para comprobar la linea de vision
     public Transform[] puntosPatrulla;
     public float distanciaDeteccionVisual;//A partir de qué distancia he visto a Ryan
+    public float umbralVision;//Grados dentro de los cuales el vigilante ve a Ryan
     public float distanciaAviso;//A partir de qué distancia avisa que puede ver a Ryan
     public float distanciaDeteccionPasos;//A partir de qué distancia he escuchado andar a Ryan
     public float distanciaDeteccionCarrera;//A partir de qué distancia he escuchado correr a Ryan
-    public float anguloVision;//Angulo de vision
-    public float distanciaAlPlayer;//Distancia al player
+    public float anguloVision;//Angulo de vision con respecto a Ryan
+    public float distanciaAlPlayer;//Distancia a Ryan
     public bool enloquecido = false;//Determina si esta siguiendo a un senyuelo
 
     private NavMeshAgent agente;
@@ -98,6 +100,15 @@ public class Douglas : MonoBehaviour {
     private void Detectar()
     {
         distanciaAlPlayer = ObtenerDistanciaAlPlayer();
+        if (distanciaAlPlayer <= distanciaDeteccionVisual)
+        {
+            anguloVision = ObtenerAnguloAlPlayer();
+            if (anguloVision <= umbralVision)
+            {
+                //TE ESTA VIENDO
+                HayVisionDirecta();
+            }
+        }
         switch (player.State){
             case Player.Estado.Idle:
                 break;
@@ -123,9 +134,32 @@ public class Douglas : MonoBehaviour {
     {
         return Vector3.Distance(transform.position, player.gameObject.transform.position);
     }
+    private float ObtenerAnguloAlPlayer()
+    {
+        float angulo = 0;
+        Vector3 direccion = player.gameObject.transform.position - transform.position;
+        angulo = Vector3.Angle(transform.forward, direccion);
+        return angulo;
+    }
     public void SetSenyuelo(Vector3 posSenyuelo)
     {
         AsignarDestinoReal(posSenyuelo);
         enloquecido = true;
+    }
+    private bool HayVisionDirecta()
+    {
+        RaycastHit rch;
+        bool hayVisionDirecta = false;
+        Vector3 direccion = player.transform.position - posOjos.position;
+        //Debug.DrawRay(posOjos.position, direccion * 10, Color.red, 1);
+        bool hayColision = Physics.Raycast(posOjos.position, direccion, out rch, Mathf.Infinity);
+        if (hayColision)
+        {
+            if (rch.transform.name == "Ryan")
+            {
+                print("TE VEO");
+            }
+        }
+        return hayVisionDirecta;
     }
 }
