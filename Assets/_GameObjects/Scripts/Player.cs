@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public enum Estado { Idle, Walking, Running }
+    public float angularSpeed;
     private Estado state;
+
 
     private const string ANIM_ISWALKING = "isWalking";
     private const string ANIM_ISRUNNING = "isRunning";
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour {
     }
     private void Rotar()
     {
-        transform.Rotate(0, x, 0);
+        transform.Rotate(0, x * angularSpeed, 0);
     }
     private void Correr()
     {
