@@ -770,6 +770,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1699489134962868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4312624727163958}
+  - component: {fileID: 119795023161565346}
+  m_Layer: 0
+  m_Name: ProjectorPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1715866946132568
 GameObject:
   m_ObjectHideFlags: 1
@@ -1215,7 +1231,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880707613116978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.52, y: 4.0268726, z: 15.68}
+  m_LocalPosition: {x: -3.01, y: 4.0268726, z: 8.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4578477265319672}
@@ -1227,6 +1243,7 @@ Transform:
   - {fileID: 4768401916383858}
   - {fileID: 4940300391888020}
   - {fileID: 4670067161473616}
+  - {fileID: 4312624727163958}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1625,6 +1642,19 @@ Transform:
   m_Father: {fileID: 4041644855828716}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4312624727163958
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699489134962868}
+  m_LocalRotation: {x: 0.71610445, y: -0, z: -0, w: 0.69799316}
+  m_LocalPosition: {x: 0.00000071525574, y: 3.7700005, z: 0.37000084}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4041644855828716}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 91.46799, y: -0.000015258789, z: -0.000015258789}
 --- !u!4 &4331296180606838
 Transform:
   m_ObjectHideFlags: 1
@@ -2368,6 +2398,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCam: {fileID: 0}
+--- !u!119 &119795023161565346
+Projector:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699489134962868}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.1
+  m_FarClipPlane: 5
+  m_FieldOfView: 50
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 10
+  m_Material: {fileID: 2100000, guid: b4440ace3381e2e43a6c7efa0db43339, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!137 &137151403009498180
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
