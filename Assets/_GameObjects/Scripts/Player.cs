@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public enum Estado { Idle, Walking, Running }
+    public enum Estado { Idle, Walking, Running, Dead }
     public float angularSpeed;
     private Estado state;
 
@@ -29,25 +29,30 @@ public class Player : MonoBehaviour {
         state = Estado.Idle;
     }
     void Update () {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-        if (y > 0.1f)
+        if (state != Estado.Dead)
         {
-            Avanzar();
-        } else
-        {
-            Parar();
-        }
-        if (x != 0)
-        {
-            Rotar();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Correr();
-        } else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            DejarDeCorrer();
+            x = Input.GetAxis("Horizontal");
+            y = Input.GetAxis("Vertical");
+            if (y > 0.1f)
+            {
+                Avanzar();
+            }
+            else
+            {
+                Parar();
+            }
+            if (x != 0)
+            {
+                Rotar();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Correr();
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                DejarDeCorrer();
+            }
         }
 	}
     private void Avanzar()
@@ -77,5 +82,13 @@ public class Player : MonoBehaviour {
     {
         animador.SetBool(ANIM_ISRUNNING, false);
         state = Estado.Walking;
+    }
+    public void Kill()
+    {
+        if (state != Estado.Dead)
+        {
+            state = Estado.Dead;
+            animador.SetTrigger("isDead");
+        }
     }
 }

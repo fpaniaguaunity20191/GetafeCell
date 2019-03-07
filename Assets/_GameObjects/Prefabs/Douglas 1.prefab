@@ -231,14 +231,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4670067161473616}
   - component: {fileID: 114969061055972504}
-  - component: {fileID: 5040165170829210730}
   m_Layer: 0
   m_Name: WaningSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1136526997840034
 GameObject:
   m_ObjectHideFlags: 1
@@ -663,7 +662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1579771989178472
 GameObject:
   m_ObjectHideFlags: 1
@@ -1008,7 +1007,7 @@ GameObject:
   - component: {fileID: 114218698978806922}
   - component: {fileID: 195092843918791838}
   m_Layer: 0
-  m_Name: Douglas
+  m_Name: Douglas 1
   m_TagString: Vigilante
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1493,13 +1492,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1556840788252656}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4670067161473616}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4216323397813264
 Transform:
   m_ObjectHideFlags: 1
@@ -2343,9 +2342,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5831a14aa73a7f44a3d2103122850a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningQuad: {fileID: 1135660926591140}
+  warningQuad: {fileID: 1556840788252656}
   posOjos: {fileID: 4940300391888020}
   puntosPatrulla:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   distanciaDeteccionVisual: 5
@@ -2782,26 +2783,3 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!895512359 &5040165170829210730
-AimConstraint:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135660926591140}
-  m_Enabled: 1
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_AimVector: {x: 0, y: 0, z: 1}
-  m_UpVector: {x: 0, y: 1, z: 0}
-  m_WorldUpVector: {x: 0, y: 1, z: 0}
-  m_WorldUpObject: {fileID: 0}
-  m_UpType: 0
-  m_AffectRotationX: 0
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 0
-  m_IsContraintActive: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1

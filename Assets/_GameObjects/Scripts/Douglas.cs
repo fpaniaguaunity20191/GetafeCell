@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Douglas : MonoBehaviour {
+    public GameObject warningQuad;
     public Transform posOjos;//Posicion de los ojos para comprobar la linea de vision
     public Transform[] puntosPatrulla;
     public float distanciaDeteccionVisual;//A partir de qué distancia he visto a Ryan
@@ -34,6 +35,18 @@ public class Douglas : MonoBehaviour {
         AsignarDestinoReal(indiceNavegacion);
         player = GameObject.Find("Ryan").GetComponent<Player>();
     }
+    private void Update()
+    {
+        Detectar();
+        if (estado != Estado.Idle && agente.remainingDistance < agente.stoppingDistance)
+        {
+            warningQuad.SetActive(false);
+            enloquecido = false;
+            estado = Estado.Idle;
+            animador.SetBool(ANIM_ISWALKING, false);
+            Invoke("AsignarDestino", 2);
+        }
+    }
     private void AsignarDestinoReal(int indice)
     {
         if (!enloquecido)
@@ -50,17 +63,6 @@ public class Douglas : MonoBehaviour {
             estado = Estado.Walking;
             agente.destination = nuevoDestino;
             animador.SetBool(ANIM_ISWALKING, true);
-        }
-    }
-    private void Update()
-    {
-        Detectar();
-        if (estado!=Estado.Idle && agente.remainingDistance < 0.1f)
-        {
-            enloquecido = false;
-            estado = Estado.Idle;
-            animador.SetBool(ANIM_ISWALKING, false);
-            Invoke("AsignarDestino", 2);
         }
     }
     private void AsignarDestino()
@@ -116,6 +118,7 @@ public class Douglas : MonoBehaviour {
                 if (distanciaAlPlayer <= distanciaDeteccionPasos)
                 {
                     //He escuchado al player
+                    warningQuad.SetActive(true);
                     AsignarDestinoReal(player.gameObject.transform.position);
                 }
                 break;
@@ -123,6 +126,7 @@ public class Douglas : MonoBehaviour {
                 if (distanciaAlPlayer <= distanciaDeteccionCarrera)
                 {
                     //He escuchado al player
+                    warningQuad.SetActive(true);
                     AsignarDestinoReal(player.gameObject.transform.position);
                 }
                 break;
@@ -157,7 +161,7 @@ public class Douglas : MonoBehaviour {
         {
             if (rch.transform.name == "Ryan")
             {
-                print("TE VEO");
+                rch.transform.gameObject.GetComponent<Player>().Kill();
             }
         }
         return hayVisionDirecta;
